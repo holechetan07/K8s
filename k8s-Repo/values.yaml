@@ -3,17 +3,17 @@
 # Declare variables to be passed into your templates.
 
 deployment:
-  name: application_name
+  name: application-name
   replica: 3
   labels:
     app: nginx   
   containers: 
-     name: container_name
+     name: container-name
      port: 80
      image: nginx
 
 service:
-  name: temo_service
+  name: temo-service
   Selector:      
     app: nginx
   protocol: TCP
