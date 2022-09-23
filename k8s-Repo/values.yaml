@@ -18,5 +18,9 @@ service:
     app: nginx
   protocol: TCP
   port: 80
+<<<<<<< HEAD
   targetPort: 9376 
   type: LoadBalancer  
+=======
+  targetPort: 30577  
+>>>>>>> ccf31c1936749ad34d695ab73ed9bf74edee1dab
