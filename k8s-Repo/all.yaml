@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  labels:
+    {{- .Values.deployment.labels | toYaml | nindent 4 }} 
+spec:
+  replicas: {{ .Values.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx 
+    spec:
+      containers:
+      - name: {{ .Values.deployment.containers.name }}
+        image: {{ .Values.deployment.containers.image  }}
+        ports:
+        - containerPort: {{ .Values.deployment.containers.port }}
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.name }}
+spec:
+  selector:
+    {{- .Values.service.selector | toYaml | nindent 4 }}
+  ports:
+    - protocol: {{ .Values.service.protocol }}
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+
+---
+
+# Default values for hello-world.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+deployment:
+  name: nginx-deployment
+  replica: 3
+  labels:
+    app: nginx   
+  containers: 
+     name: nginx-container
+     port: 80
+     image: nginx
+
+service:
+  name: nginx-service
+  Selector:      
+    app: nginx
+  protocol: TCP
+  port: 80
+  targetPort: 80 
+  type: LoadBalancer  
+  targetPort: 80
